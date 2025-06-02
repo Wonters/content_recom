@@ -104,6 +104,11 @@ ENV/
 env.bak/
 venv.bak/
 
+
+.idea
+.vscode
+index.hnsw
+data/
 # Spyder project settings
 .spyderproject
 .spyproject
