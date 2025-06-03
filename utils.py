@@ -42,9 +42,10 @@ class Recommender:
         else:
             result = self.score_contenu(id_user)
         top = sorted(result.items(), key=lambda x: x[1], reverse=True)[:k]
-        article_details = self.articles.set_index("article_id").loc[[i for i,_ in top]]
-
-        return self.articles.set_index("article_id").loc[[i for i,_ in top]]
+        top = sorted(top, key=lambda x: x[0])
+        article_details = self.articles.loc[self.articles["article_id"].isin([i for i,_ in top])].sort_values(by='article_id')
+        article_details['score'] = [i[1] for i in top]
+        return article_details.sort_values(by='score', ascending=False)
     
     def train(self):
         svd = sp.SVD(n_factors=100,biased=True)
