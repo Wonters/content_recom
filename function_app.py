@@ -102,7 +102,7 @@ def recommand(req: func.HttpRequest) -> func.HttpResponse:
         recommender = Recommender(articles, articles_clicks_per_user, embeddings, model, min_rating=2)
         
         # Obtenir les recommandations
-        recommendations = recommender.get_top_articles(user_id, k=5, hybrid=True,similarity=similarity, alpha=0.7)
+        recommendations = recommender.get_top_articles(user_id, k=k, hybrid=hybrid,similarity=similarity, alpha=alpha)
         
         # Convertir les recommandations en format JSON
         recommendations_json = recommendations.to_dict(orient='records')
