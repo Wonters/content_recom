@@ -42,6 +42,8 @@ class Recommender:
         else:
             result = self.score_contenu(id_user)
         top = sorted(result.items(), key=lambda x: x[1], reverse=True)[:k]
+        article_details = self.articles.set_index("article_id").loc[[i for i,_ in top]]
+
         return self.articles.set_index("article_id").loc[[i for i,_ in top]]
     
     def train(self):
@@ -59,7 +61,7 @@ class Recommender:
         return set(self.articles_clicks_per_user.loc[self.articles_clicks_per_user.user_id==id_user, "click_article_id"])
 
     @timer
-    def score_collaboratif(self, id_user):
+    def score_contenu(self, id_user):
         candidates = [id_ for id_ in self.articles["article_id"] if id_ not in self.seen(id_user)]
         candidates_embeddings = self.embeddings[candidates]
         user_embedding = self.embeddings[self.idx_map[id_user]]
@@ -67,7 +69,7 @@ class Recommender:
         return {i: score for i, score in zip(candidates, scores)}
 
     @timer
-    def score_contenu(self, id_user):
+    def score_collaboratif(self, id_user):
         return {i: self.model.predict(id_user,i).est for i in self.all_items if i not in self.seen(id_user)}
 
     def score_hybride(self, id_user, alpha=0.7):

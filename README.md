@@ -9,7 +9,12 @@ Assume azure-cli and and azure functions core tools is installed.
 Create a functionapp 
 ```bash
 az login
-az functionapp create --name contentrecomapp-new --storage-account contentrecom --resource-group poc --consumption-plan-location westeurope --runtime python --runtime-version 3.10.15 --functions-version 4 --os-type linux
+az functionapp create --name contentrecomapp-new --storage-account contentrecom --resource-group poc --consumption-plan-location westeurope --runtime python --runtime-version 3.10 --functions-version 4 --os-type linux
+```
+
+## Fetch local settings of the azure function
+```bash
+func azure functionapp fetch-app-settings contentrecomapp-new --ouput local.settings.json
 ```
 
 ## Update file on blob 

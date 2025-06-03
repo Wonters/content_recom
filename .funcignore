@@ -10,6 +10,8 @@ test
 .venv
 data.zip
 data
+app.py
+tests.py
 *.hnsw
 index.hnsw
 *.ipynb

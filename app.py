@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 API_URL = "http://localhost:7071/api/recommand"
-API_URL = "https://contentrecomapp-new.azurewebsites.net/api/recommand"
+API_URL = "https://contentrecomapp.azurewebsites.net/api/recommand"
 # Définition des labels et valeurs pour le selectbox
 labels = ['Utilisateur 1', 'Utilisateur 2', 'Utilisateur 3', 'Utilisateur 4', 
           'Utilisateur 5', 'Utilisateur 6', 'Utilisateur 7', 'Utilisateur 8', 
