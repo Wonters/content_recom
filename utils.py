@@ -65,9 +65,9 @@ class Recommender:
     def score_contenu(self, id_user):
         candidates = [id_ for id_ in self.articles["article_id"] if id_ not in self.seen(id_user)]
         candidates_embeddings = self.embeddings[candidates]
-        user_embedding = self.embeddings[self.idx_map[id_user]]
+        user_embedding = self.embeddings[list(self.seen(id_user))]
         scores = candidates_embeddings@user_embedding.T
-        return {i: score for i, score in zip(candidates, scores)}
+        return {i: score for i, score in zip(candidates, scores.max(axis=1))}
 
     @timer
     def score_collaboratif(self, id_user):
